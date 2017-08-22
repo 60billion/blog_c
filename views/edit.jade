@@ -1,0 +1,75 @@
+doctype html
+html
+  head
+    meta(cherset='utf-8')
+    style
+      |.flex-container {display: -webkit-flex;display: flex;  -webkit-flex-flow: row wrap;flex-flow: row wrap;text-align: center; width:900px; margin-left:20px;}
+      |.flex-container > * {padding: 15px;-webkit-flex: 1 100%;flex: 1 100%;}
+      |.article {text-align: left; background:#fceaf1;}
+      |header {color:black;}
+      |footer {background: white; color:black; height:5px; }
+      |.nav {background:#fcabbb; margin-right:3px; }
+      |.nav ul {list-style-type: none;padding: 0;}
+      |.nav ul a {text-decoration: none;}
+      |@media all and (min-width: 768px) {.nav {text-align:left;-webkit-flex: 1 auto;flex:1 auto;-webkit-order:1;order:1;}.article {-webkit-flex:5 0px;flex:5 0px;-webkit-order:2;order:2;} footer {-webkit-order:3;order:3;}}
+    |<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    |<!-- Include external CSS. -->
+    |<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    |<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
+    |<link href="../css/froala_style.min.css" rel="stylesheet" type="text/css" />
+    |<!-- Include Editor style. -->
+    |<link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+    |<link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+      
+  body
+    div(class="flex-container")
+      header
+        h1
+          a(href='/' style='text-decoration:none;') Blog
+      nav(class="nav")
+        a(href='/new' style='color:black; text-decoration:none; font-weight: bold;') NEW
+        ul
+          each val in list
+            li
+              a(href='/'+val.id)=val.title
+      article(class="article")
+        form(action='/'+list1.id,method='post')
+          h1(style="color:red;") Edit Page
+          div(class="form-group")
+            label(for="InputTitle") title
+            input(type="text" class="form-control" id="InputTitle"  name='title' value=list1.title)
+          p
+            div(class="form-group")
+              label(for="exampleInputName2") Name:
+              input(type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe" name='name' value=list1.name)
+            div(class="form-group")
+              label(for="exampleInputEmail2") Email:
+              input(type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com" name='email' value=list1.email)
+            div(class="form-group")
+              label(for="exampleInputPhone") Phone:
+              input(type="number" class="form-control" id="exampleInputPhone" placeholder="01012341234" name='phone' value=list1.phone)
+            div(class="form-group")
+              label(for="exampleInputPassword") Password:
+              input(type="password" class="form-control" id="exampleInputPassword" placeholder="Password" name='password')
+          p
+          p Contents
+          textarea(name='contents' ) 
+            p=list1.contents
+            p
+            
+          <!-- Include external JS libs. -->
+          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+       
+          <!-- Include Editor JS files. -->
+          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/js/froala_editor.pkgd.min.js"></script>
+       
+          <!-- Initialize the editor. -->
+          <script> $(function() { $('textarea').froalaEditor() }); </script>
+          p
+          a(href="/"+id)
+            input(class="btn btn-default" type="submit" value="Submit")
+        p
+        a(class="btn btn-default" href="/"+list1.id+'/delete' role="button") Delete
+      footer Copyright &copy; 60billion.com      
